@@ -41,8 +41,6 @@ while True:
     y_min=float(input('y_min > '))
     y_max=float(input('y_max > '))
 
-#plt.text(5050, 150, '$^{185}Au_{5/2-}$ \n' '$E_{\u03B1}$=5069 keV')
-
     ax.tick_params(axis='both',direction='out', top=True,right=True)
     ax.set_title('$^{48}Ca+^{242}Pu$', fontsize=20)
     plt.step(data.energy, data.counts,c='black',alpha=0.7)
@@ -92,13 +90,8 @@ def alpha_gaus(x, amplitude, mean, stddev,tau):
 while True:
     x=int(input('The serial number of the peak to be fitted > '))
     a=float(input('How much of the data to fit? > '))
-    #mu=float(input('The aproximate Mean value of the peak > '))
-    #sig=float(input('The aproximate Sigma of the peak > '))
     left_gauss_bound = peaks.energy[x]-a-30
     right_gauss_bound = peaks.energy[x]+a
-    #data = pd.read_csv(file_name + '.dat',sep='	', decimal=',', float_precision='high')
-    #data.columns=["energy", "counts"]
-    #data[data<0]=0
     data=data.loc[(data['energy'] >= left_gauss_bound) & (data['energy'] <= right_gauss_bound)]
     x_values_1 = np.asarray(data['energy'])
     y_values_1 = np.asarray(data['counts'])
@@ -146,7 +139,7 @@ while True:
     if saving =="y":
         plt.tight_layout()
         plt.savefig(file_name+"_Peak_"+str(x)+".pdf")
-        file1 = open(file_name+"_Peak_"+str(x)+ ".txt","w")#write mode 
+        file1 = open(file_name+"_Peak_"+str(x)+ ".txt","w")
         file1.write(peak_parameters)
         file1.close()
         plt.show()
